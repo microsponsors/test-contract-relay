@@ -1,6 +1,6 @@
 # Test Contract: Relay
 
-This is a small proof-of-concept that will help Microsponsors upgrade its Registry smart contract in the future. The Relay contract here shows how a new version of the Registry could query and edit the "old" version of the Registry on-chain. This will be useful when we need to upgrade to the new  0x Exchange contract version 3.
+This is a small proof-of-concept that will help Microsponsors upgrade its Registry smart contract in the future. The Relay contract here shows how a new version of the Registry could query and edit the "old" original version of the Registry on-chain. This will be useful when we need to upgrade to the new  0x Exchange contract version 3.
 
 
 ## Build & Deploy
@@ -24,6 +24,6 @@ $ truffle console --network development
 > Relay.deployed().then(inst => { r = inst})
 > r.dr()
 outputs deployed registry contract (set in migrations/2_deployed_contracts.js)
-> r.isWhitelisted("0xBE8aC3CCf738d0184f21122469EcC8813A7E0633")
+> r.isWhitelisted("0xB9E652B8Da207a40B7E7CcB404FEEC95A4b8CFAF")
 true
 ```
