@@ -1,6 +1,6 @@
 # Test Contract: Relay
 
-This is a small proof-of-concept that will help Microsponsors upgrade its Registry smart contract in the future. The Relay contract here shows how a new version of the Registry could query and edit the "old" original version of the Registry on-chain. This will be useful when we need to upgrade to the new  0x Exchange contract version 3.
+This is a small proof-of-concept that will help Microsponsors upgrade its [Registry smart contract](https://github.com/microsponsors/registry-contract) in the future. The Relay contract here shows how a new version of the Registry could query and edit the "old" original version of the Registry on-chain. This will be useful when we need to upgrade to the new  0x Exchange contract version 3.
 
 
 ## Build & Deploy
