@@ -22,8 +22,5 @@ This stack seems to be sensitive to versioning, so capturing details here:
 ```
 $ truffle console --network development
 > Relay.deployed().then(inst => { r = inst})
-> r.dr()
-outputs deployed registry contract (set in migrations/2_deployed_contracts.js)
-> r.isWhitelisted("0xB9E652B8Da207a40B7E7CcB404FEEC95A4b8CFAF")
-true
+> r.update(1, <address>)
 ```

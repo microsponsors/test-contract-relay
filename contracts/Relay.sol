@@ -2,46 +2,90 @@ pragma solidity ^0.5.5;
 pragma experimental ABIEncoderV2;
 
 
-// Copy of old original Deployed Registry contract ABI
+// Deployed Registry contract ABI
 // We just the signatures of the parts we need to interact with:
 contract DeployedRegistry {
-
-    mapping (address => bool) public isWhitelisted;
-
+    function isContentIdRegisteredToCaller(uint32 federationId, string memory contentId) public view returns(bool);
+    function isMinter(uint32 federationId, address account) public view returns (bool);
+    function isAuthorizedTransferFrom(uint32 federationId, address from, address to, uint256 tokenId, address minter, address owner) public view returns(bool);
 }
+
 
 contract Relay {
 
-    DeployedRegistry public dr;
     address public owner;
+    mapping (uint32 => address) public federationIdToRegistryAddress;
 
-    // Initialize the Relay by passing address of original Deployed Registry
-    // See `/migrations/2_deploy_contracts.js`
+
     constructor(address initAddr)
         public
     {
 
-        dr = DeployedRegistry(initAddr);
         owner = msg.sender;
 
     }
 
-    function update(address newAddress)
-        public
-    {
+    function update(uint32 federationId, address newAddress) public {
+
         require(msg.sender == owner, 'NOT_AUTHORIZED');
-        dr = DeployedRegistry(newAddress);
+
+        federationIdToRegistryAddress[federationId] = newAddress;
+
     }
 
 
-    function isWhitelisted(address target)
+    function isContentIdRegisteredToCaller(
+        uint32 federationId,
+        string memory contentId
+    )
         public
         view
         returns (bool)
     {
 
-        // Checks original Registry contract for whitelisted status:
-        return dr.isWhitelisted(target);
+        // Checks mapped Registry contract:
+        DeployedRegistry dr = DeployedRegistry(federationIdToRegistryAddress[federationId]);
+
+        // Call upstream fn:
+        return dr.isContentIdRegisteredToCaller(federationId, contentId);
+
+    }
+
+    function isMinter(
+        uint32 federationId,
+        address account
+    )
+        public
+        view
+        returns (bool)
+    {
+
+        // Checks mapped Registry contract:
+        DeployedRegistry dr = DeployedRegistry(federationIdToRegistryAddress[federationId]);
+
+        // Call upstream fn:
+        return dr.isMinter(federationId, account);
+
+    }
+
+    function isAuthorizedTransferFrom(
+        uint32 federationId,
+        address from,
+        address to,
+        uint256 tokenId,
+        address minter,
+        address owner
+    )
+        public
+        view
+        returns (bool)
+    {
+
+        // Checks mapped Registry contract:
+        DeployedRegistry dr = DeployedRegistry(federationIdToRegistryAddress[federationId]);
+
+        // Call upstream fn:
+        return dr.isAuthorizedTransferFrom(federationId, from, to, tokenId, minter, owner);
 
     }
 
