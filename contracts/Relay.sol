@@ -17,7 +17,7 @@ contract Relay {
     mapping (uint32 => address) public federationIdToRegistryAddress;
 
 
-    constructor(address initAddr)
+    constructor()
         public
     {
 
